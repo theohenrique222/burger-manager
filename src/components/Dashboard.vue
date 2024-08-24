@@ -1,45 +1,65 @@
 <template>
-  <div id="burger-table" class="content">
-    <Message :msg="msg" v-show="msg"/>
-    <div>
-      <div id="burger-table-heading">
-        <div class="order-id">Nº</div>
-        <div>Cliente</div>
-        <div>Pão</div>
-        <div>Proteina</div>
-        <div>Opcionais</div>
-        <div>Ações</div>
+    <div class="max-w-6xl mx-auto p-4 bg-white shadow-xl rounded-md">
+        <h1 class="lg:text-2xl text-base font-bold uppercase mb-6 text-center shadow-md shadow-neutral-800 bg-gray-800 text-white py-4 px-6">
+          Gerenciador de pedidos
+        </h1>
+        <Message :msg="msg" v-show="msg" />
+      <div class="mb-4">
+        <div class="flex font-bold lg:text-base text-xs text-center border-b-2 border-gray-800 pb-2">
+          <div class="flex-1">Nº</div>
+          <div class="flex-1">Cliente</div>
+          <div class="flex-1">Pão</div>
+          <div class="flex-1">Proteina</div>
+          <div class="flex-1">Opcionais</div>
+          <div class="flex-1">Ações</div>
+        </div>
       </div>
-    </div>
-    <div id="burger-table-rows">
-      <div class="burger-table-row" v-for="burger in burgers" :key="burger.id">
-        <div class="order-number">{{ burger.id }}</div>
-        <div>{{ burger.name }}</div>
-        <div>{{ burger.pao }}</div>
-        <div>{{ burger.proteina }}</div>
-        <div>
-          <ul>
-            <li v-for="(opcional, index) in burger.opcional" :key="index" >
+      <div class="rounded-md text-center">
+        <div
+          class="flex items-center lg:text-base text-[.5rem] text-center border-b-2 border-gray-300 p-4"
+          v-for="burger in burgers"
+          :key="burger.id"
+        >
+          <div class="flex-1">{{ burger.id }}</div>
+          <div class="flex-1">{{ burger.name }}</div>
+          <div class="flex-1">{{ burger.pao }}</div>
+          <div class="flex-1">{{ burger.proteina }}</div>
+          <div class="flex-1">
+            <ul class="list-inside text-start">
+              <li v-for="(opcional, index) in burger.opcional" :key="index">
                 {{ opcional }}
-            </li>
-          </ul>
-        </div>
-        <div>
-          <select name="status" class="status" @change="updateBurger($event, burger.id)">
-            <option>Selecione</option>
-            <option class="select-row" :value="state.tipo" v-for="state in status" :key="state.id" :selected="burger.status == state.tipo">
+              </li>
+            </ul>
+          </div>
+          <div class="flex-1 lg:flex items-center justify-center lg:space-x-2 space-y-1">
+            <select
+              name="status"
+              class="px-2 py-2 border border-gray-300 rounded-md shadow-sm"
+              @change="updateBurger($event, burger.id)"
+            >
+              <option value="" disabled selected hidden>Selecione</option>
+              <option
+                v-for="state in status"
+                :key="state.id"
+                :value="state.tipo"
+                :selected="burger.status == state.tipo"
+              >
                 {{ state.tipo }}
-            </option>
-          </select>
-          <button class="delete-btn" @click="deleteBurger(burger.id)">Cancelar</button>
+              </option>
+            </select>
+            <button
+              class="bg-gray-800 text-yellow-400 font-bold border-2 border-gray-800 py-2 px-2 rounded-md cursor-pointer transition-colors duration-500 hover:bg-transparent hover:text-gray-800"
+              @click="deleteBurger(burger.id)"
+            >
+              Cancelar
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- <div v-else>
-    <h2>Não há pedidos no momento!</h2>
-  </div> -->
-</template>
+  </template>
+
+  
 
 <script>
 
@@ -61,11 +81,8 @@ export default {
     methods: {
         async getPedidos() {
             const req = await fetch("http://localhost:3000/burgers")
-
             const data = await req.json();
-
             this.burgers = data;
-            console.log(this.burgers)
 
             // resgatar status
             this.getStatus();
@@ -105,8 +122,7 @@ export default {
 
             setTimeout(()=> this.msg = "", 3000);
 
-            console.log(res)
-        }
+            }
 
     },
     mounted() {
@@ -114,74 +130,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-    #burger-table {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    #burger-table-heading,
-    #burger-table-rows,
-    .burger-table-row {
-        display: flex;
-        flex-wrap: wrap;
-    }
-    #burger-table-heading {
-        font-weight: bold;
-        padding: 12px;
-        border-bottom: 3px solid #333;
-    }
-    #burger-table-heading div,
-    .burger-table-row div {
-        width: 19%;
-    }
-    .burger-table-row {
-        width: 100%;
-        padding: 12px;
-        border-bottom: 1px solid #CCC;
-    }
-    #burger-table-heading .order-id,
-    .burger-table-row .order-number {
-        width: 5%;
-    }
-    select {
-        padding: 12px 6px;
-        margin-right: 12px;
-    }
-    .delete-btn {
-        background-color: #222;
-        color: #FCBA03;
-        font-weight: bold;
-        border: 2px solid #222;
-        padding: 10px 5px;
-        font-size: 16px;
-        margin: 0 auto;
-        cursor: pointer;
-        transition: .5s;
-    }
-    .delete-btn:hover {
-        background: transparent;
-
-    }
-    @media (max-width: 400px) {
-        
-        div {
-            font-size: .5rem;
-            
-        }
-        .delete-btn {
-            font-size: .5rem;
-            padding: 2px 1px;
-            width: 100%;
-        }
-        .status {
-            padding: 2px 1px;
-            margin-bottom: 2px;
-        }
-        .select-row {
-            background-color: red;
-            padding: 1px 1px;
-        }
-    }
-</style>
