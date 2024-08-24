@@ -77,5 +77,16 @@
       "tipo": "Finalizado"
     }
   ],
-  "burgers": []
+  "burgers": [
+    {
+      "id": "96b0",
+      "name": "teste",
+      "proteina": "Maminha",
+      "pao": "Italiano Branco",
+      "opcional": [
+        "Bacon"
+      ],
+      "status": "Solicitado"
+    }
+  ]
 }
