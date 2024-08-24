@@ -1,7 +1,7 @@
 # burger-manager
-```
+
 Projeto desenvolvido com Vue.js no frontend e JSON como backend para gerenciar pedidos de uma hamburgueria. Inclui funcionalidades de criação, atualização e visualização do status de pedidos em tempo real.
-```
+
 ## Project setup
 ```
 npm install

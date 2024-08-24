@@ -44,4 +44,13 @@ export default {
   #nav a:hover {
     color: #FFF;
   }
+  @media (max-width: 400px) {
+    #nav a{
+      font-size: .9rem;
+    }
+    #logo {
+      width: 40px;
+      height: 40px;
+    }
+  }
 </style>

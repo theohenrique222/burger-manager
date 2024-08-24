@@ -2,7 +2,7 @@
   <div class="main-container">
     <Banner />
     <h1>Monte o seu hamburger:</h1>
-    <BurgerForm />
+    <BurgerForm class="form"/>
   </div>  
 </template>
 
@@ -21,5 +21,14 @@
 <style scoped>
   * {
     margin: 0;
+  }
+  @media (max-width: 400px) {
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    .form {
+      margin: 20px;
+    }
   }
 </style>

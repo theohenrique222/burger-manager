@@ -1,7 +1,9 @@
 <template>
-  <Navbar :logo="logo_src" :alt="app_name"/>
-  <router-view/>
-  <Footer/>
+  <div>
+    <Navbar :logo="logo_src" :alt="app_name"/>
+    <router-view class="content"/>
+    <Footer class="footer"/>
+  </div>
 </template>
 
 
@@ -29,6 +31,7 @@
     margin: 0;
     box-sizing: border-box;
   }
+
   .main-container {
     margin: 50px;
     min-height: 250px;
@@ -38,5 +41,9 @@
     font-size: 42px;
     margin-bottom: 30px;
     color: #222;
+  }
+  footer {
+    position: relative;
+    bottom: 0;
   }
 </style>

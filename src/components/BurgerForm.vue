@@ -160,5 +160,13 @@ export default {
         background-color: transparent;
         color: #222;
     }
+    @media (max-width: 400px) {
+        label,
+        input,
+        span {
+            font-size: .9rem;
+        }
+        
+    }
 
 </style>

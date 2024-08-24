@@ -79,29 +79,14 @@
   ],
   "burgers": [
     {
-      "id": "c337",
-      "name": "teste",
-      "proteina": "Alcatra",
+      "id": "bcbc",
+      "name": "Theo",
+      "proteina": "Maminha",
       "pao": "Italiano Branco",
       "opcional": [
         "Bacon"
       ],
       "status": "Em produção"
-    },
-    {
-      "id": "a4cf",
-      "name": "Theo",
-      "proteina": "Picanha",
-      "pao": "Integral",
-      "opcional": [
-        "Bacon",
-        "Salame",
-        "Pepino",
-        "Cheddar",
-        "Tomate",
-        "Cebola roxa"
-      ],
-      "status": "Finalizado"
     }
   ]
 }

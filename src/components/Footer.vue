@@ -12,6 +12,7 @@ export default {
 
 <style scoped>
   #footer {
+    bottom: 0;
     height: 200px;
     background-color: #222;
     border-top: 4px solid #111;
@@ -20,5 +21,11 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
+  } 
+  @media (max-width: 400px) {
+    #footer {
+      height: 120px;
+      font-size: .9rem;
+    }
   }
 </style>

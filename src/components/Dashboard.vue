@@ -1,14 +1,14 @@
 <template>
-  <div id="burger-table" >
+  <div id="burger-table" class="content">
     <Message :msg="msg" v-show="msg"/>
     <div>
       <div id="burger-table-heading">
-        <div class="order-id">#:</div>
-        <div>Cliente:</div>
-        <div>Pão:</div>
-        <div>Proteina:</div>
-        <div>Opcionais:</div>
-        <div>Ações:</div>
+        <div class="order-id">Nº</div>
+        <div>Cliente</div>
+        <div>Pão</div>
+        <div>Proteina</div>
+        <div>Opcionais</div>
+        <div>Ações</div>
       </div>
     </div>
     <div id="burger-table-rows">
@@ -27,7 +27,7 @@
         <div>
           <select name="status" class="status" @change="updateBurger($event, burger.id)">
             <option>Selecione</option>
-            <option :value="state.tipo" v-for="state in status" :key="state.id" :selected="burger.status == state.tipo">
+            <option class="select-row" :value="state.tipo" v-for="state in status" :key="state.id" :selected="burger.status == state.tipo">
                 {{ state.tipo }}
             </option>
           </select>
@@ -116,6 +116,7 @@ export default {
 </script>
 
 <style scoped>
+
     #burger-table {
         max-width: 1200px;
         margin: 0 auto;
@@ -134,9 +135,6 @@ export default {
     #burger-table-heading div,
     .burger-table-row div {
         width: 19%;
-    }
-    .opitional-row {
-        width: 2%;
     }
     .burger-table-row {
         width: 100%;
@@ -166,13 +164,24 @@ export default {
         background: transparent;
 
     }
-    .status {
-        width: 50%;
-    }
-    .diminuir {
-        width: 2px;
-    }
-    .optional-row {
-        width: 2px;
+    @media (max-width: 400px) {
+        
+        div {
+            font-size: .5rem;
+            
+        }
+        .delete-btn {
+            font-size: .5rem;
+            padding: 2px 1px;
+            width: 100%;
+        }
+        .status {
+            padding: 2px 1px;
+            margin-bottom: 2px;
+        }
+        .select-row {
+            background-color: red;
+            padding: 1px 1px;
+        }
     }
 </style>
