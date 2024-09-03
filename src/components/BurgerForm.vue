@@ -44,14 +44,14 @@
             required
             class="w-full p-2 border border-gray-300 rounded-md shadow-sm"
           >
-            <option value="" disabled selected>Selecione o seu pão</option>
+            <option>Selecione o seu pão</option>
             <option v-for="pao in paes" :key="pao.id" :value="pao.tipo">
               {{ pao.tipo }}
             </option>
           </select>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-5">
           <label
             for="proteina"
             class="block font-bold mb-2 text-gray-800 border-l-4 border-yellow-400 pl-2"
@@ -65,7 +65,7 @@
             required
             class="w-full p-2 border border-gray-300 rounded-md shadow-sm"
           >
-            <option value="" disabled selected>Selecione a proteina</option>
+            <option value="">Selecione a proteina</option>
             <option
               v-for="proteina in proteinas"
               :key="proteina.id"
@@ -76,19 +76,20 @@
           </select>
         </div>
 
-        <div id="opicionais-container" class="mb-4">
+        <div id="opicionais-container" class="mb-5">
           <label
             id="opicionais-title"
             for="opicionais"
-            class="block font-bold mb-2 text-gray-800 border-l-4 border-yellow-400 pl-2"
+            class="block font-bold mb-3 text-gray-800 border-l-4 border-yellow-400 pl-2"
           >
             Selecione os opcionais
           </label>
-          <div
-            v-for="opcional in opcionaisData"
-            :key="opcional.id"
-          >
-            <div>
+          <div class="grid grid-cols-2 gap-4">
+            <div
+              class="p-1 border-b-2 border-yellow-400"
+              v-for="opcional in opcionaisData"
+              :key="opcional.id"
+            >
               <input
                 type="checkbox"
                 name="opicionais"
@@ -156,10 +157,15 @@ export default {
         body: dataJson,
       });
       const res = await req.json();
+
       // Inserir mensagem no sistema
+
       this.msg = `Pedido Nº ${res.id} realizado com sucesso!`;
+
       // limpar msg
+
       setTimeout(() => (this.msg = ""), 3000);
+
       // Limpar os campos
       this.name = "";
       this.proteina = "";

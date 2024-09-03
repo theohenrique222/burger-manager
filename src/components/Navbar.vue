@@ -1,7 +1,12 @@
 <template>
   <nav class="bg-neutral-900 border-b-2 border-neutral-600">
-    <div id="nav" class="lg:max-w-6xl max-w-96 m-auto flex items-center justify-between">
-      <router-link class="flex items-center font-bold space-x-1" to="/" id="logo-url">
+    <div id="nav" class="lg:max-w-7xl max-w-96 m-auto flex items-center justify-between">
+      <router-link
+        class="flex items-center font-bold space-x-1"
+        to="/"
+        id="logo-url"
+        aria-label="Home"
+      >
         <img :src="logo" :alt="alt" id="logo" />
         <span class="text-base">Burger Manager</span>
       </router-link>
@@ -9,22 +14,24 @@
         <button
           @click="toggleDropdown"
           class="text-yellow-500 hover:text-yellow-100 text-xl border-none cursor-pointer flex items-center gap-2"
+          aria-label="Menu"
         >
-          
           <span class="flex text-4xl">
             <ion-icon name="menu-outline"></ion-icon>
           </span>
         </button>
         <div
-          v-if="isDropdownOpen"
+          v-show="isDropdownOpen"
           class="absolute bg-neutral-900 shadow-lg z-10 mt-2 right-px rounded-md min-w-[160px] max-h-[200px] overflow-y-auto"
+          role="menu"
         >
           <router-link
             v-for="(item, index) in menuItems"
             :key="index"
             :to="item.id"
             @click="closeDropdown"
-            class="flex items-center p-4 text-black no-underline hover:bg-neutral-600 transition-colors border-b-2 border-neutral-600"
+            class="flex items-center p-4 text-neutral-100 no-underline hover:bg-neutral-600 transition-colors duration-300 border-b-2 border-neutral-600"
+            role="menuitem"
           >
             <ion-icon :name="item.icon" class="mr-2"></ion-icon>
             {{ item.label }}
