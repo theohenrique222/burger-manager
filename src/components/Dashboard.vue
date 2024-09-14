@@ -62,8 +62,10 @@
   
 
 <script>
-
 import Message from "./Message.vue";
+import axios from 'axios';
+
+axios.defaults.baseURL = 'https://json-serve-zeta.vercel.app';
 
 export default {
     name: "Dashboard",
@@ -73,57 +75,61 @@ export default {
             burger_id: null,
             status: [],
             msg: null
-        }
+        };
     },
     components: {
         Message
     },
     methods: {
         async getPedidos() {
-            const req = await fetch("http://localhost:3000/burgers")
-            const data = await req.json();
-            this.burgers = data;
+            try {
+                const response = await axios.get('/burgers');
+                this.burgers = response.data;
+                console.log('Burgers:', this.burgers);
 
-            // resgatar status
-            this.getStatus();
+                // resgatar status
+                this.getStatus();
+            } catch (error) {
+                console.error('Erro ao obter pedidos:', error.message);
+            }
         },
         async getStatus() {
-            const req = await fetch("http://localhost:3000/status");
-
-            const data = await req.json();
-
-            this.status = data;
+            try {
+                const response = await axios.get('/status');
+                this.status = response.data;
+                console.log('Status:', this.status);
+            } catch (error) {
+                console.error('Erro ao obter status:', error.message);
+            }
         },
         async deleteBurger(id) {
-            const req = await fetch(`http://localhost:3000/burgers/${id}`, {
-                method: "DELETE"
-            });
-            const res = await req.json();
+            try {
+                const response = await axios.delete(`/ingredientes/${id}`);
+                this.msg = `Pedido Nº: ${response.data.id} removido com sucesso!`;
+                console.log('Delete response:', response.data);
 
-            //msg
-            this.msg = `Pedido Nº: ${res.id} removido com sucesso!`
+                setTimeout(() => this.msg = "", 3000);
 
-            setTimeout(()=> this.msg = "", 3000);
-
-            this.getPedidos();
-
-        },
-        async updateBurger(event, id){
-            const option = event.target.value;
-            const dataJson = JSON.stringify({ status: option });
-            const req = await fetch(`http://localhost:3000/burgers/${id}`, {
-                method: "PATCH",
-                headers: { "Content-type": "aplication/json" },
-                body: dataJson
-            });
-            const res = await req.json();
-
-            this.msg = `Pedido Nº: ${res.id} foi atualizado para ${res.status}!`
-
-            setTimeout(()=> this.msg = "", 3000);
-
+                this.getPedidos();
+            } catch (error) {
+                console.error('Erro ao deletar pedido:', error.message);
             }
+        },
+        async updateBurger(event, id) {
+            const option = event.target.value;
+            const dataJson = { status: option };
+            try {
+                const response = await axios.patch(`/burgers/${id}`, dataJson, {
+                    headers: { "Content-Type": "application/json" }
+                });
+                this.msg = `Pedido Nº: ${response.data.id} foi atualizado para ${response.data.status}!`;
+                console.log('Update response:', response.data);
 
+                setTimeout(() => this.msg = "", 3000);
+            } catch (error) {
+                console.error('Erro ao atualizar pedido:', error.message);
+            }
+        }
     },
     mounted() {
         this.getPedidos();
